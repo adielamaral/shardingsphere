@@ -1,0 +1,42 @@
+dataSources:
+  ds0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3306/ds0?allowPublicKeyRetrieval=true&useSSL=false
+    username: admin
+    password: admin
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 65
+    minPoolSize: 1
+  ds1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3307/ds1?allowPublicKeyRetrieval=true&useSSL=false
+    username: admin
+    password: admin
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 65
+    minPoolSize: 1
+
+rules:
+  - !SHARDING
+    tables:
+      user_account:
+        actualDataNodes: ds${0..1}.user_account
+    defaultDatabaseStrategy:
+      standard:
+        shardingColumn: id
+        shardingAlgorithmName: container_based_sharding
+    defaultTableStrategy:
+      none:
+    shardingAlgorithms:
+      container_based_sharding:
+        type: INLINE
+        props:
+          algorithm-expression: ds${id % 2}
+props:
+  sql-show: false

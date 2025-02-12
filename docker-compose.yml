@@ -1,0 +1,24 @@
+services:
+  mysql_ds0:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_DATABASE=ds0
+      - MYSQL_ROOT_PASSWORD=admin
+    volumes:
+      - "./conf.d:/etc/mysql/conf.d"
+
+  mysql_ds1:
+    image: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_DATABASE=ds1
+      - MYSQL_ROOT_PASSWORD=admin
+    volumes:
+      - "./conf.d:/etc/mysql/conf.d"
