@@ -21,11 +21,8 @@ public class UserAccountService {
     private final IdGeneratorService idGeneratorService;
 
     public UserAccount create(UserAccountRequest request) {
-        if (request.getId() == null) {
-            request.setId(idGeneratorService.generateUniqueId());
-        }
         UserAccount userAccount = new UserAccount();
-        userAccount.setId(request.getId());
+        userAccount.setId(idGeneratorService.generateUniqueId());
         userAccount.setName(request.getName());
         userAccount.setEmail(request.getEmail());
         userAccount.setCpf(request.getCpf());
